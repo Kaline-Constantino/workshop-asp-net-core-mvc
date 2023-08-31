@@ -21,12 +21,12 @@ namespace SalesWebMVC
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Este método é chamado pelo tempo de execução (runtime). Use este método para adicionar serviços ao contêiner.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                // Este lambda determina se o consentimento do usuário para cookies não essenciais é necessário para uma determinada solicitação.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -35,7 +35,7 @@ namespace SalesWebMVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Este método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação HTTP.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
