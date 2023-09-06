@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SalesWebMVC.Data;
 
 namespace SalesWebMVC
 {
@@ -33,6 +35,9 @@ namespace SalesWebMVC
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<SalesWebMVCContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SalesWebMVCContext")));
         }
 
         // Este método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação HTTP.
