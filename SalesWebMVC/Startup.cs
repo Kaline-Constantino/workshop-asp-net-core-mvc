@@ -39,16 +39,22 @@ namespace SalesWebMVC
             services.AddDbContext<SalesWebMVCContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SalesWebMVCContext"), builder =>
                         builder.MigrationsAssembly("SalesWebMVC")));
+
+            // Aqui estou registrando meu serviço no sistema de injeção de dependência da aplicação. 
+            services.AddScoped<SeedingService>();
         }
 
         // Este método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação HTTP.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // Este método aceita que coloquemos outros parâmetros, então vou colocar o recem criado SeedingService.
+        // Se colocarmos um parâmetro, e essa classe estiver registrada no sistema de injeção de dependência da aplicação, automaticamente será resolvido uma instância desse objeto.  
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) //Perfil de desenvolvimento
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed(); //como estou no perfil de desenvolmento agora, vou chamá-lo aqui, populando minha base de dados caso ela não esteja populada ainda.  
             }
-            else
+            else // Perfil de produção, se o aplcativo já estiver publicado
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
