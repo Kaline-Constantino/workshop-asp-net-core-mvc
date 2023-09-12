@@ -31,5 +31,17 @@ namespace SalesWebMVC.Services
             _context.SaveChanges();
         }
 
+        public Seller FindById(int id) //Irá me retornar o vendedor que possui esse id. Se não existir, retorna nulo 
+        {
+            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Seller.Find(id);
+            _context.Seller.Remove(obj);
+            _context.SaveChanges();
+        }
+
     }
 }
