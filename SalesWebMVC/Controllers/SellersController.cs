@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SalesWebMVC.Models;
+using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace SalesWebMVC.Controllers
     {
         //Declarar uma dependência para o sellerservice
         private readonly SellerService _sellerService;
+        private readonly DepartmentService _departmentService;
 
         //Construtor para injetar a dependência
-        public SellersController(SellerService sellerService)
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index() //Esse indx chamará a operação findall do sellerservice.
@@ -28,7 +31,9 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departments = _departmentService.FindAll(); //Aqui ele irá buscar do BD todos os departamentos
+            var viewModel = new SellerFormViewModel { Departments = departments };
+            return View(viewModel);
         }
 
         [HttpPost] //Aqui indico que a minha ação abaixo será um Post e não Get.
