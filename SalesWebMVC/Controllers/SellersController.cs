@@ -43,6 +43,12 @@ namespace SalesWebMVC.Controllers
         public IActionResult Create(Seller seller)  //Essa operação receberá um objeto vendedor(seller) que veio da requisição. Para que eu receba esse objeto e instancie esse vendedor, 
         //basta colocá-lo como parâmetro
         {
+            if (!ModelState.IsValid)  //Testa se o modelo foi validado
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index)); //Aqui após inserir o novo vendedor, redireciono a página para a página Sellers
         }
@@ -109,6 +115,13 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            if (!ModelState.IsValid)  
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
