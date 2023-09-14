@@ -65,12 +65,12 @@ namespace SalesWebMVC
 
             app.UseRequestLocalization(localizationOptions);
             
-            if (env.IsDevelopment()) //Perfil de desenvolvimento
+            if (env.IsDevelopment())                                                                //Perfil de desenvolvimento
             {
                 app.UseDeveloperExceptionPage();
-                seedingService.Seed(); //como estou no perfil de desenvolmento agora, vou chamá-lo aqui, populando minha base de dados caso ela não esteja populada ainda.  
+                seedingService.Seed();                                                             //como estou no perfil de desenvolmento agora, vou chamá-lo aqui, populando minha base de dados caso ela não esteja populada ainda.  
             }
-            else // Perfil de produção, se o aplcativo já estiver publicado
+            else                                                                                   // Perfil de produção, se o aplcativo já estiver publicado
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();

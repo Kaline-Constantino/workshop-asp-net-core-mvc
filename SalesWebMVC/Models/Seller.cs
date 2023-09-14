@@ -10,7 +10,7 @@ namespace SalesWebMVC.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")] //{0} pega automaticamente o nome(Name) do atributo, {2} pega o mínimo e {1} pega o máximo. 
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]            //{0} pega automaticamente o nome(Name) do atributo, {2} pega o mínimo e {1} pega o máximo. 
         public string Name { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
@@ -25,7 +25,7 @@ namespace SalesWebMVC.Models
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
-        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")] //Aqui específico que o salário deve ser entre o minímo(100) e o máximo(50.000)
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]                                     //Aqui específico que o salário deve ser entre o minímo(100) e o máximo(50.000)
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
